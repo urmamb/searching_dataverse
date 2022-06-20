@@ -15,14 +15,14 @@ import 'package:searching_dataverse/utils/network/network_info.dart';
 class RepositoryImp implements Repository {
   final LocalDataSource _localDataSource;
   final Logger _log;
-  final NetworkInfo _networkInfo;
+  // final NetworkInfo _networkInfo;
   final RemoteDataSource _remoteDataSource;
 
   RepositoryImp({required LocalDataSource localDataSource, required NetworkInfo networkInfo, required RemoteDataSource remoteDataSource, required Logger log})
       : _localDataSource = localDataSource,
         _log = log,
-        _remoteDataSource = remoteDataSource,
-        _networkInfo = networkInfo;
+        _remoteDataSource = remoteDataSource;
+        // _networkInfo = networkInfo;
 
   @override
   @override
@@ -46,7 +46,8 @@ class RepositoryImp implements Repository {
   @override
   Future<Either<Failure, bool>> checkInternetConnection(NoParams params) async {
     try {
-      return Right(await _networkInfo.isConnected);
+      // return Right(await _networkInfo.isConnected);
+      return Right(true);
     } catch (e) {
       return Left(NetworkFailure(NO_INTERNET));
     }

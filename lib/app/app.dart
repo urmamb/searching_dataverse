@@ -32,7 +32,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late CasheroRouterDelegate delegate;
-  late CasheroBackButtonDispatcher backButtonDispatcher;
+  late AppBackButtonDispatcher backButtonDispatcher;
   late CasheroParser parser = CasheroParser();
 
   @override
@@ -41,13 +41,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
 
     delegate = CasheroRouterDelegate(sl());
-    backButtonDispatcher = sl<CasheroBackButtonDispatcher>();
+    backButtonDispatcher = sl<AppBackButtonDispatcher>();
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(builder: () {
+    return ScreenUtilInit(builder: (context, child) {
       return MaterialApp.router(
           scaffoldMessengerKey: scaffoldMessengerGlobal,
           routerDelegate: delegate,
@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           routeInformationParser: parser,
           debugShowCheckedModeBanner: false,
           builder: (context, widget) {
-            ScreenUtil.setContext(context);
+            // ScreenUtil.setContext(context);
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
               child: widget ?? Container(),

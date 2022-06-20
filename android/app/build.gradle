@@ -47,7 +47,7 @@ android {
         applicationId "com.example.searching_dataverse"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion localProperties.getProperty('flutter.minSdkVersion').toInteger()
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -59,6 +59,20 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+    }
+    flavorDimensions "default"
+    productFlavors {
+
+        prod {
+            dimension "default"
+        }
+
+        development {
+            dimension "default"
+            applicationIdSuffix ".develop"
+
+        }
+
     }
 }
 

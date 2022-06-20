@@ -15,7 +15,7 @@ import 'app_state.dart';
 class CasheroRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNotifier, PopNavigatorRouterDelegateMixin<PageConfiguration> {
   late final AppState appState;
 
-  late CasheroBackButtonDispatcher backButtonDispatcher;
+  late AppBackButtonDispatcher backButtonDispatcher;
 
   CasheroRouterDelegate(this.appState) {
     appState.addListener(() {
