@@ -31,5 +31,10 @@ abstract class Repository {
   /// if unsuccessful the response will be [Failure]
   Future<Either<Failure, bool>> logoutUser();
 
+  /// This use case will get accessToken from server
+  /// [Input]: contains query parameters
+  /// [Output] : [String] contains accessToken.
+  Future<Either<Failure, String>> getAccessToken();
+
 
 }

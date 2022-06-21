@@ -13,6 +13,8 @@ import 'package:searching_dataverse/services/datasource/remote_data_source/remot
 import 'package:searching_dataverse/services/datasource/remote_data_source/remote_data_source_imp.dart';
 import 'package:searching_dataverse/services/repository/repository.dart';
 import 'package:searching_dataverse/services/repository/repository_imp.dart';
+import 'package:searching_dataverse/src/features/home/home_screen_view_model.dart';
+import 'package:searching_dataverse/src/features/home/usecase/get_access_token.dart';
 import 'package:searching_dataverse/src/features/splash_screen/splash_screen_view_model.dart';
 import 'package:searching_dataverse/utils/network/network_info.dart';
 import 'package:searching_dataverse/utils/network/network_info_imp.dart';
@@ -36,6 +38,7 @@ void registerCoreDependencies() {
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImp());
   sl.registerLazySingleton(() => AppState());
   sl.registerLazySingleton(() => AppBackButtonDispatcher(sl()));
+
 }
 
 /// This method will register external dependencies
@@ -68,11 +71,22 @@ void registerViewModels() {
         () => SplashScreenViewModel(clearSecureStorage: sl(), appState: sl()),
   );
 
+  sl.registerLazySingleton(() => HomeScreenViewModel(getAccessToken: sl()));
+
 }
 
 /// This method will register all the data sources
 void registerDataSources() {
-  sl.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImp(dio: sl(), log: sl(), url: dotenv.env["url"]));
+  sl.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImp(
+      dio: sl(),
+      log: sl(),
+      clientId: dotenv.env["clientid"],
+      loginUrl: dotenv.env["loginurl"],
+      apiVersion: dotenv.env["apiversion"],
+      redirectUri: dotenv.env["redirectUri"],
+      tenantId: dotenv.env["tenantid"],
+      resourceUrl: dotenv.env["webapiurl"])
+  );
   sl.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImp(
     flutterSecureStorage: sl(),
     sharedPreferences: sl(),
@@ -85,5 +99,6 @@ void registerUseCases() {
   sl.registerLazySingleton(() => GetAuthToken(sl()));
   sl.registerLazySingleton(() => SaveAuthToken(sl()));
   sl.registerLazySingleton(() => ClearSecureStorage(sl()));
+  sl.registerLazySingleton(() => GetAccessToken(sl()));
 
 }

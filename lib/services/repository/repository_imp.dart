@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:logger/logger.dart';
 import 'package:searching_dataverse/services/datasource/local_data_source/local_data_source.dart';
@@ -10,7 +11,6 @@ import 'package:searching_dataverse/services/repository/repository.dart';
 import 'package:searching_dataverse/services/usecase/usecases/usecase.dart';
 import 'package:searching_dataverse/utils/constants/app_strings.dart';
 import 'package:searching_dataverse/utils/network/network_info.dart';
-
 
 class RepositoryImp implements Repository {
   final LocalDataSource _localDataSource;
@@ -22,9 +22,8 @@ class RepositoryImp implements Repository {
       : _localDataSource = localDataSource,
         _log = log,
         _remoteDataSource = remoteDataSource;
-        // _networkInfo = networkInfo;
+  // _networkInfo = networkInfo;
 
-  @override
   @override
   Future<Either<Failure, String>> getAuthToken() async {
     try {
@@ -71,4 +70,16 @@ class RepositoryImp implements Repository {
     }
   }
 
+  @override
+  Future<Either<Failure, String>> getAccessToken() async {
+    try {
+      return Right(await _remoteDataSource.getAccessToken());
+    } on Failure catch (e) {
+      return Left(e);
+    } on DioError catch (_) {
+      return Left(ServerFailure(SOMETHING_WENT_WRONG));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }
