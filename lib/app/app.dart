@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:searching_dataverse/app/globals.dart';
 import 'package:searching_dataverse/utils/router/back_button_dispatcher.dart';
@@ -33,7 +32,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   late CasheroRouterDelegate delegate;
   late AppBackButtonDispatcher backButtonDispatcher;
-  late CasheroParser parser = CasheroParser();
+  late DataverseParser parser = DataverseParser();
 
   @override
   void initState() {

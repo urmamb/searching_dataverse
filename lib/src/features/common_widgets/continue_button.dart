@@ -46,8 +46,11 @@ class ContinueButton extends StatelessWidget {
                             text,
                           ),
                     onPressed: shouldButtonBeEnabled(isEnabled, isLoading) ? onPressed : () {},
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
+                    style: ButtonStyle(
+                      elevation: MaterialStateProperty.all(0),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                      )),
                     ),
                   );
                 });

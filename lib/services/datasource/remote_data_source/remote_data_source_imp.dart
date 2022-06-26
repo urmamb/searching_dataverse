@@ -4,48 +4,39 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
 import 'package:searching_dataverse/services/datasource/remote_data_source/remote_data_source.dart';
+import 'package:searching_dataverse/src/features/home/search_screen/usecase/get_accounts.dart';
 
 import '../../error/failure.dart';
 
 class RemoteDataSourceImp implements RemoteDataSource {
   final Dio _dio;
   final Logger _log;
-  final String _loginUrl;
-  final String _resourceUrl;
-  final String _apiVersion;
-  final String _clientId;
-  final String _tenantId;
-  final String _redirectUri;
+  final String _webApiUrl;
 
-  RemoteDataSourceImp({required Dio dio, required Logger log, required loginUrl, required resourceUrl, required apiVersion, required clientId, required tenantId, required redirectUri})
+  RemoteDataSourceImp({required Dio dio, required Logger log, required webApiUrl})
       : _dio = dio,
         _log = log,
-        _loginUrl = loginUrl,
-        _resourceUrl = resourceUrl,
-        _apiVersion = apiVersion,
-        _clientId = clientId,
-        _tenantId = tenantId,
-        _redirectUri = redirectUri;
+        _webApiUrl = webApiUrl;
 
-  String getOauthUrl() {
-    var loginUrl = _loginUrl;
-    var resource = _resourceUrl;
-    var tenantId = _tenantId;
-
-    return '$loginUrl$tenantId/oauth2/authorize?resource=$resource';
-  }
 
   @override
-  Future<String> getAccessToken() async {
-    var oAuthUrl = getOauthUrl();
+  Future<List<Account>> getAccounts(accessToken) async {
+    _dio.options.headers = {
+      'Authorization': 'Bearer $accessToken',
+      'Content-Type': 'application/json'
+    };
 
-    _dio.options.headers = {'Access-Control-Allow-Origin': '*'};
-    final response = await _dio.get(oAuthUrl);
+    final response = await _dio.get('$_webApiUrl/accounts').onError((error, stackTrace) {
 
-    _log.i('[remote data source : getAccessToken] $response');
+      _log.e(error, stackTrace);
 
-    if (response.statusCode == 200 && response.data != null && response.data['code'] == 1000) {
-      return response.data;
+      throw AccessTokenFailure('Access Token Failure');
+    });
+
+    _log.i('[remote data source : getAccounts] $response');
+
+    if (response.statusCode == 200) {
+      return List.from(response.data['value']).map((e) => Account.fromJson(e)).toList();
     }
 
     // if (response.statusCode == 200 && response.data != null && response.data['code'] == 2011) {

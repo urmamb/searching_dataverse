@@ -53,3 +53,10 @@ class AccessTokenFailure extends Failure {
   @override
   List<Object> get props => [message];
 }
+
+class AccessDeniedFailure extends Failure {
+  AccessDeniedFailure(message) : super(message);
+
+  @override
+  List<Object> get props => [message];
+}

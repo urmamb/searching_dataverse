@@ -37,9 +37,12 @@ dependencies:
 
   # For dependency injection
   get_it: 7.2.0
-
+  #dataverse_oauth: ^0.4.0
+  webview_flutter: ^3.0.4
   # directory helper
   path_provider: 2.0.11
+
+  jwt_decoder: ^2.0.1
 
   # for focus
   focus_detector: 2.0.1
@@ -54,6 +57,9 @@ dependencies:
 
   # This plugin provides a cross-platform (iOS, Android) API to request permissions and check their status.
   permission_handler: 9.2.0
+
+  #shimmer animation
+  shimmer_animation: ^2.1.0+1
 
   # Used for secure storage
   flutter_secure_storage: 5.0.2

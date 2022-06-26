@@ -21,5 +21,6 @@ class PageConfiguration extends Equatable {
 enum Pages {
   Splash,
   HomeScreen,
-  NoInternetScreen
+  NoInternetScreen,
+  SearchViewScreen
 }

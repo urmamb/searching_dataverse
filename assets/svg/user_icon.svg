@@ -1,0 +1,7 @@
+<svg id="Component_159_2" data-name="Component 159 – 2" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <rect id="Rectangle_1615" data-name="Rectangle 1615" width="40" height="40" rx="20" fill="#e5effd"/>
+  <g id="person_black_24dp" transform="translate(10 10)">
+    <path id="Path_1366" data-name="Path 1366" d="M0,0H20V20H0Z" fill="none"/>
+    <path id="Path_1367" data-name="Path 1367" d="M10,10A3,3,0,1,0,7,7,3,3,0,0,0,10,10Zm0,1.5c-2,0-6,1.005-6,3V16H16V14.5C16,12.505,12,11.5,10,11.5Z" fill="#0667eb"/>
+  </g>
+</svg>

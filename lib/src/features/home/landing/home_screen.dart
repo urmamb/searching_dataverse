@@ -1,11 +1,12 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:searching_dataverse/app/globals.dart';
-import 'package:searching_dataverse/src/features/common_widgets/continue_button.dart';
-import 'package:searching_dataverse/src/features/home/home_screen_view_model.dart';
+import 'package:searching_dataverse/app/widgets/show_loader.dart';
+import 'package:searching_dataverse/src/features/home/landing/home_screen_view_model.dart';
 import 'package:searching_dataverse/utils/extensions/extensions.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,11 +18,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeScreenViewModel get viewModel => sl();
+  late ShowLoader showLoader;
 
   @override
   void initState() {
     super.initState();
+
+    scheduleMicrotask(() {
+      showLoader = ShowLoader(context);
+    });
+
     viewModel.errorMessageNotifier = (message) => context.show(message: message);
+    viewModel.toggleShowLoader = () => showLoader.toggle();
   }
 
   @override
@@ -40,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     padding: EdgeInsets.all(20.w),
                     // width: MediaQuery.of(context).size.width,
-                    child: Image.asset('images/platform.png'),
+                    child: Image.asset('assets/images/platform.png'),
                   ),
                 ),
               ),
@@ -55,10 +63,29 @@ class _HomeScreenState extends State<HomeScreen> {
               // SizedBox(height: 30.h,),
               Spacer(),
               Center(
-                child: ContinueButton(text: 'Access Dataverse Table', onPressed: () {
-                  viewModel.getAccessToken();
-
-                }),
+                child: SizedBox(
+                  height: 48.h,
+                  child: ElevatedButton(
+                    key: ValueKey('access_button'),
+                    onPressed: () async {
+                      showLoader.toggle();
+                      viewModel.getAccessToken();
+                      // ShowLoader(context).toggle();
+                    },
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                      )),
+                      backgroundColor: MaterialStateProperty.all(Theme.of(context).primaryColor),
+                      foregroundColor: MaterialStateProperty.all(Theme.of(context).textTheme.bodyText1!.color),
+                      elevation: MaterialStateProperty.all(0),
+                    ),
+                    child: Text(
+                      'Access Dataverse',
+                      style: TextStyle(color: Theme.of(context).canvasColor),
+                    ),
+                  ),
+                ),
               ),
               SizedBox(
                 height: 30.h,

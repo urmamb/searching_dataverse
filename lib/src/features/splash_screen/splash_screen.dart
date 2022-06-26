@@ -220,9 +220,9 @@ class _MyAppAnimatedLogoState extends State<MyAppAnimatedLogo> with TickerProvid
 
         children: [
           if (showLeftMove) AnimatedPositioned(bottom: 0, left: leftPositionedValue, duration: const Duration(seconds: 1),
-          child: SizedBox(width: 130.w, height: 120.h, child: SvgPicture.asset('assets/svg/power_apps.svg'))),
-          if (showRightMove) Positioned(bottom: 0, right: rightPositionedValue, child: SizedBox(width: 130.w, height: 120.h, child: SvgPicture.asset('assets/svg/power_apps.svg'))),
-          if (showMainAnimation) Positioned(left: 0, bottom: 0, right: 0, child: Center(child: SizedBox(width: 220.w, height: 120.h, child: SvgPicture.asset('assets/svg/power_apps.svg')))),
+          child: SizedBox(width: 130.w, height: 120.h, child: SvgPicture.asset('assets/svg/dataverse_scalable.svg'))),
+          if (showRightMove) Positioned(bottom: 0, right: rightPositionedValue, child: SizedBox(width: 130.w, height: 120.h, child: SvgPicture.asset('assets/svg/dataverse_scalable.svg'))),
+          if (showMainAnimation) Positioned(left: 0, bottom: 0, right: 0, child: Center(child: SizedBox(width: 220.w, height: 120.h, child: SvgPicture.asset('assets/svg/dataverse_scalable.svg')))),
 
         ],
       ),
