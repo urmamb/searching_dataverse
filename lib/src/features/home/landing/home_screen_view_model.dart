@@ -61,7 +61,4 @@ class HomeScreenViewModel {
     _appState.currentAction = PageAction(state: PageState.addPage, page: SearchViewScreenConfig);
   }
 
-  void moveToLoginFailedScreen(){
-
-  }
 }
