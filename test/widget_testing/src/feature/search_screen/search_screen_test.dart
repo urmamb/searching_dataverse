@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
@@ -21,16 +20,14 @@ void main() {
   late AppState appState;
   late GetAccounts getAccounts;
 
-
-  setUp(() {
+  setUpAll(() {
     repository = MockRepository();
     logOutUser = LogOutUser(repository);
     getAccounts = GetAccounts(repository);
     appState = AppState();
-    viewModel = SearchScreenViewModel( appState: appState, getAccounts: getAccounts, logOutUser: logOutUser);
+    viewModel = SearchScreenViewModel(appState: appState, getAccounts: getAccounts, logOutUser: logOutUser);
 
     GetIt.I.registerSingleton(viewModel);
-
   });
 
   testWidgets('Should show loading contents of search screen', (tester) async {
@@ -48,26 +45,12 @@ void main() {
     final accessKeyFinder = find.byKey(const Key('back_button'));
 
     await tester.testAppForWidgetTesting(
-      ChangeNotifierProvider<SearchScreenViewModel>.value(value: viewModel, child: const SearchViewScreen()),
+      ChangeNotifierProvider<SearchScreenViewModel>.value(value: viewModel, child: Material(child: const SearchViewScreen())),
     );
 
     await tester.tap(accessKeyFinder);
 
     expect(appState.currentAction, expectedPageAction);
-  });
-
-  testWidgets('Should show contents of search screen when search string is empty', (tester) async {
-    final textFinder = find.text('Search account');
-    final textFinder2 = find.text('No result found');
-
-    viewModel.searchController.text = 'blablabla';
-
-    await tester.testAppForWidgetTesting(
-      ChangeNotifierProvider<SearchScreenViewModel>.value(value: viewModel, child: const SearchViewScreenContent()),
-    );
-
-    expect(textFinder, findsOneWidget);
-    expect(textFinder2, findsOneWidget);
   });
 
   testWidgets('Should show contents of search screen when accounts available', (tester) async {
@@ -81,24 +64,8 @@ void main() {
       ChangeNotifierProvider<SearchScreenViewModel>.value(value: viewModel, child: const Material(child: SearchViewScreenContent())),
     );
 
-
     expect(accountsWidgetFinder, findsOneWidget);
     expect(textFinder, findsOneWidget);
     expect(textFinder2, findsOneWidget);
   });
-
-  // testWidgets('Should show move to search screen on button tap', (tester) async {
-  //   var expectedPageAction = PageAction(state: PageState.addPage, page: SearchViewScreenConfig);
-  //
-  //   final accessKeyFinder = find.byKey(const Key('access_button'));
-  //
-  //   await tester.testAppForWidgetTesting(
-  //     Provider.value(value: viewModel, child: const HomeScreen()),
-  //   );
-  //
-  //   await tester.tap(accessKeyFinder);
-  //
-  //   expect(appState.currentAction, expectedPageAction);
-  //   expect(accessKeyFinder, findsOneWidget);
-  // });
 }

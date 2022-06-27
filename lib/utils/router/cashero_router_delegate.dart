@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:searching_dataverse/app/globals.dart';
 import 'package:searching_dataverse/src/features/home/landing/home_screen.dart';
 import 'package:searching_dataverse/src/features/home/search_screen/search_view_screen.dart';
-import 'package:searching_dataverse/src/features/no_internet_screen/no_internet_screen.dart';
 import 'package:searching_dataverse/src/features/splash_screen/splash_screen.dart';
 
 import 'package:searching_dataverse/utils/router/back_button_dispatcher.dart';
@@ -90,9 +89,6 @@ class CasheroRouterDelegate extends RouterDelegate<PageConfiguration> with Chang
           break;
         case Pages.HomeScreen:
           _addPageData(HomeScreen(), pageConfig);
-          break;
-        case Pages.NoInternetScreen:
-          _addPageData(NoInternetScreen(), pageConfig);
           break;
         case Pages.SearchViewScreen:
           _addPageData(SearchViewScreen(), pageConfig);

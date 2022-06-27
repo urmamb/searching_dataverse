@@ -22,7 +22,7 @@ void main() {
   late LogInUser logInUser;
   late AppState appState;
 
-  setUp(() {
+  setUpAll(() {
     repository = MockRepository();
     getAccessToken = GetAccessToken(repository);
     logInUser = LogInUser(repository);

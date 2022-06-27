@@ -36,9 +36,5 @@ class AppState extends ChangeNotifier {
     currentAction = PageAction(state: PageState.pop);
   }
 
-  void moveToNoInternetScreen() {
-    currentAction = PageAction(state: PageState.addPage, page: NoInternetPageConfig);
-  }
-
   bool canPop() => pages.length > 1;
 }

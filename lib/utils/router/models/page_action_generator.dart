@@ -13,7 +13,6 @@ class PageActionGenerator {
 
     switch (appStateEnum) {
       case AppStateEnum.NONE:
-        // return PageAction(state: PageState.replaceAll, page: GetPhoneAuthConfig);
         break;
 
     }

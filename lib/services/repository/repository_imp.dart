@@ -1,41 +1,20 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:logger/logger.dart';
-import 'package:searching_dataverse/services/datasource/local_data_source/local_data_source.dart';
 import 'package:searching_dataverse/services/datasource/remote_data_source/remote_data_source.dart';
 import 'package:searching_dataverse/services/error/failure.dart';
 import 'package:searching_dataverse/services/repository/repository.dart';
 import 'package:searching_dataverse/services/third_party_plugins/dataverse_oauth/dataverse_oauth.dart';
-import 'package:searching_dataverse/services/usecase/usecases/usecase.dart';
 import 'package:searching_dataverse/src/features/home/search_screen/usecase/get_accounts.dart';
 import 'package:searching_dataverse/utils/constants/app_strings.dart';
-import 'package:searching_dataverse/utils/network/network_info.dart';
 
 class RepositoryImp implements Repository {
-  final Logger _log;
-  // final NetworkInfo _networkInfo;
   final RemoteDataSource _remoteDataSource;
   final DataverseAadOauth _aadOauth;
 
   RepositoryImp({required RemoteDataSource remoteDataSource, required Logger log, required DataverseAadOauth aadOauth})
-      : _log = log,
-        _remoteDataSource = remoteDataSource,
+      : _remoteDataSource = remoteDataSource,
         _aadOauth = aadOauth;
-  // _networkInfo = networkInfo;
-
-
-  @override
-  Future<Either<Failure, bool>> checkInternetConnection(NoParams params) async {
-    try {
-      // return Right(await _networkInfo.isConnected);
-      return Right(true);
-    } catch (e) {
-      return Left(NetworkFailure(NO_INTERNET));
-    }
-  }
 
   @override
   Future<Either<Failure, String>> getAccessToken() async {

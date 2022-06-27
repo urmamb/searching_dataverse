@@ -4,9 +4,6 @@ import 'package:searching_dataverse/services/usecase/usecases/usecase.dart';
 import 'package:searching_dataverse/src/features/home/search_screen/usecase/get_accounts.dart';
 
 abstract class Repository {
-  /// This method will check if internet connection is available or not
-  /// output: [bool] if internet is available return true else false
-  Future<Either<Failure, bool>> checkInternetConnection(NoParams params);
 
   /// This use case will get accessToken from server
   /// [Input]: contains query parameters

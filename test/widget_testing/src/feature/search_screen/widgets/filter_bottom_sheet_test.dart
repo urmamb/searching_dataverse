@@ -21,7 +21,7 @@ void main() {
   late GetAccounts getAccounts;
 
 
-  setUp(() {
+  setUpAll(() {
     repository = MockRepository();
     logOutUser = LogOutUser(repository);
     getAccounts = GetAccounts(repository);

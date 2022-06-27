@@ -70,9 +70,6 @@ class AccountsOnDataversListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // context.read<SearchScreenViewModel>().routeToBusinessDetailScreen(
-        //   businessId: account.accountid,
-        // );
       },
       child: Container(
         padding: EdgeInsets.only(left: kItemsPaddingUnit.w, right: kItemsPaddingUnit.w, bottom: 20.h),

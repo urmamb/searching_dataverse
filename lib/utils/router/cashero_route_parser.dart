@@ -6,7 +6,6 @@ import 'models/page_config.dart';
 import 'ui_pages.dart';
 
 class DataverseParser extends RouteInformationParser<PageConfiguration> {
-
   @override
   Future<PageConfiguration> parseRouteInformation(RouteInformation routeInformation) {
     final uri = Uri.parse(routeInformation.location ?? '');
@@ -34,9 +33,6 @@ class DataverseParser extends RouteInformationParser<PageConfiguration> {
 
       case Pages.HomeScreen:
         return const RouteInformation(location: HomeScreenPath);
-
-      case Pages.NoInternetScreen:
-        return const RouteInformation(location: NoInternetScreenPath);
       case Pages.SearchViewScreen:
         return const RouteInformation(location: SearchViewScreenPath);
     }
