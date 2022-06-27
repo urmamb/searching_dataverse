@@ -2,10 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-// import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:searching_dataverse/app/app_usecase/clear_secure_storage.dart';
-import 'package:searching_dataverse/app/app_usecase/get_auth_token.dart';
-import 'package:searching_dataverse/app/app_usecase/save_auth_token.dart';
 import 'package:searching_dataverse/app/globals.dart';
 import 'package:searching_dataverse/services/datasource/local_data_source/local_data_source.dart';
 import 'package:searching_dataverse/services/datasource/local_data_source/local_data_source_imp.dart';
@@ -47,7 +43,7 @@ void registerCoreDependencies() {
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImp());
   sl.registerLazySingleton(() => AppState());
   sl.registerLazySingleton(() => AppBackButtonDispatcher(sl()));
-  sl.registerLazySingleton<DataverseAadOauth>(() => AadOauthImp(logger: sl(), oauth: sl()));
+  sl.registerLazySingleton<DataverseAadOauth>(() => DataverseAadOauthImp(logger: sl(), oauth: sl()));
 }
 
 /// This method will register external dependencies
@@ -73,7 +69,7 @@ void registerExternalDependencies() {
 /// This method will register the repository
 void registerRepository() {
   // sl.registerLazySingleton<PermissionEngine>(() => PermissionEngineImp(sl()));
-  sl.registerLazySingleton<Repository>(() => RepositoryImp(localDataSource: sl(), remoteDataSource: sl(), networkInfo: sl(), log: sl(), aadOauth: sl()));
+  sl.registerLazySingleton<Repository>(() => RepositoryImp(remoteDataSource: sl(), log: sl(), aadOauth: sl()));
 }
 
 /// This method will register config
@@ -85,7 +81,7 @@ void registerConfigs() {
 /// This method will register all the view models
 void registerViewModels() {
   sl.registerLazySingleton(
-    () => SplashScreenViewModel(clearSecureStorage: sl(), appState: sl()),
+    () => SplashScreenViewModel(appState: sl()),
   );
 
   sl.registerLazySingleton(() => HomeScreenViewModel(getAccessToken: sl(), logInUser: sl(), appState: sl()));
@@ -103,9 +99,6 @@ void registerDataSources() {
 
 /// This method will register all the use cases
 void registerUseCases() {
-  sl.registerLazySingleton(() => GetAuthToken(sl()));
-  sl.registerLazySingleton(() => SaveAuthToken(sl()));
-  sl.registerLazySingleton(() => ClearSecureStorage(sl()));
   sl.registerLazySingleton(() => GetAccessToken(sl()));
   sl.registerLazySingleton(() => LogOutUser(sl()));
   sl.registerLazySingleton(() => LogInUser(sl()));

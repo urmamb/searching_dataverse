@@ -15,36 +15,17 @@ import 'package:searching_dataverse/utils/constants/app_strings.dart';
 import 'package:searching_dataverse/utils/network/network_info.dart';
 
 class RepositoryImp implements Repository {
-  final LocalDataSource _localDataSource;
   final Logger _log;
   // final NetworkInfo _networkInfo;
   final RemoteDataSource _remoteDataSource;
   final DataverseAadOauth _aadOauth;
 
-  RepositoryImp({required LocalDataSource localDataSource, required NetworkInfo networkInfo, required RemoteDataSource remoteDataSource, required Logger log, required DataverseAadOauth aadOauth})
-      : _localDataSource = localDataSource,
-        _log = log,
+  RepositoryImp({required RemoteDataSource remoteDataSource, required Logger log, required DataverseAadOauth aadOauth})
+      : _log = log,
         _remoteDataSource = remoteDataSource,
         _aadOauth = aadOauth;
   // _networkInfo = networkInfo;
 
-  @override
-  Future<Either<Failure, String>> getAuthToken() async {
-    try {
-      return right(await _localDataSource.getAuthToken());
-    } catch (e) {
-      return left(CacheFailure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, bool>> saveAuthToken(String params) async {
-    try {
-      return Right(await _localDataSource.saveAuthToken(params));
-    } catch (e) {
-      return Left(CacheFailure(e.toString()));
-    }
-  }
 
   @override
   Future<Either<Failure, bool>> checkInternetConnection(NoParams params) async {
@@ -53,15 +34,6 @@ class RepositoryImp implements Repository {
       return Right(true);
     } catch (e) {
       return Left(NetworkFailure(NO_INTERNET));
-    }
-  }
-
-  @override
-  Future<Either<Failure, bool>> clearSecureStorage(NoParams noParams) async {
-    try {
-      return Right(await _localDataSource.clearsSecureStorage());
-    } catch (e) {
-      return Left(CacheFailure(e.toString()));
     }
   }
 

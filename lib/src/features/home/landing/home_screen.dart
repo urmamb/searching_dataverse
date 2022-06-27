@@ -47,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Center(
                   child: Container(
                     padding: EdgeInsets.all(20.w),
-                    // width: MediaQuery.of(context).size.width,
                     child: Image.asset('assets/images/platform.png'),
                   ),
                 ),
@@ -56,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Flexible(
                   flex: 1,
                   child: Center(
+                    key: Key('description_text'),
                       child: Padding(
                     padding: EdgeInsets.all(20.0.w),
                     child: Text('Dataverse lets you securely store and manage data that iss used by business applications. Data within Dataverse is stored within a set of tables.'),
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: SizedBox(
                   height: 48.h,
                   child: ElevatedButton(
-                    key: ValueKey('access_button'),
+                    key: Key('access_button'),
                     onPressed: () async {
                       showLoader.toggle();
                       viewModel.getAccessToken();

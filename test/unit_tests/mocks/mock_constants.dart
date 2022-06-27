@@ -1,4 +1,3 @@
-
 import 'package:searching_dataverse/src/features/home/search_screen/usecase/get_accounts.dart';
 
 const MOCK_ACCESSTOKEN_TOKEN =
@@ -11,11 +10,49 @@ const MOCK_ADDRESS = 'bla bla bla';
 const MOCK_NAME = 'Jhon';
 const MOCK_POST_CODE = '2022';
 const MOCK_CITY = 'Raymond';
-const MOCK_STATE_PROVINCE = 'Washington';
+const MOCK_STATE_PROVINCE = 'WA';
 const MOCK_COUNTRY = 'United States';
 const MOCK_STATE_CODE = 0;
+const MOCK_WEB_API_URL = 'https://org75a123456.api.crm4.dynamics.com/api/data/v9.2';
 
+const MOCK_ACCOUNT_JSON = [
+  {
+    'accountid': '123',
+    'accountnumber': MOCK_ACCOUNT_NUMBER,
+    'name': 'markus',
+    'emailaddress1': MOCK_EMAIL,
+    'address1_composite': MOCK_ADDRESS,
+    'address1_postalcode': MOCK_POST_CODE,
+    'address1_city': 'New York',
+    'address1_stateorprovince': 'NY',
+    'address1_country': MOCK_COUNTRY,
+    'statecode': MOCK_STATE_CODE
+  },
+  {
+    'accountid': MOCK_ACCOUNT_ID,
+    'accountnumber': MOCK_ACCOUNT_NUMBER,
+    'name': MOCK_NAME,
+    'emailaddress1': MOCK_EMAIL,
+    'address1_composite': MOCK_ADDRESS,
+    'address1_postalcode': MOCK_POST_CODE,
+    'address1_city': MOCK_CITY,
+    'address1_stateorprovince': MOCK_STATE_PROVINCE,
+    'address1_country': MOCK_COUNTRY,
+    'statecode': MOCK_STATE_CODE
+  }
+];
 final MOCK_ACCOUNT_LIST = [
+  const Account(
+      accountid: '123',
+      accountnumber: MOCK_ACCOUNT_NUMBER,
+      name: 'markus',
+      emailaddress1: MOCK_EMAIL,
+      address1_composite: MOCK_ADDRESS,
+      address1_postalcode: MOCK_POST_CODE,
+      address1_city: 'New York',
+      address1_stateorprovince: 'NY',
+      address1_country: MOCK_COUNTRY,
+      statecode: MOCK_STATE_CODE),
   const Account(
       accountid: MOCK_ACCOUNT_ID,
       accountnumber: MOCK_ACCOUNT_NUMBER,

@@ -30,9 +30,6 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
 
     viewModel.errorMessages = (value) => scaffoldKey.currentContext!.show(message: value);
-    // viewModel.showPermissionDialog = () => showLocationPermissionDialog();
-    // viewModel.startConfiguration = () => viewModel.moveToHomeScreen();
-
     viewModel.showInternetSnackBar = () {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: const Text(NO_INTERNET),

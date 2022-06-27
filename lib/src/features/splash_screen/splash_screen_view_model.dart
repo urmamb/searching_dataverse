@@ -1,23 +1,18 @@
-import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:searching_dataverse/app/app_usecase/clear_secure_storage.dart';
 import 'package:searching_dataverse/services/error/failure.dart';
-import 'package:searching_dataverse/services/usecase/usecases/usecase.dart';
 import 'package:searching_dataverse/utils/constants/app_state_enum.dart';
 import 'package:searching_dataverse/utils/router/app_state.dart';
 import 'package:searching_dataverse/utils/router/models/page_action.dart';
 import 'package:searching_dataverse/utils/router/models/page_config.dart';
 
 class SplashScreenViewModel extends ChangeNotifier {
-  final ClearSecureStorage _clearSecureStorage;
   final AppState _appState;
 
 
-  SplashScreenViewModel({required ClearSecureStorage clearSecureStorage, required AppState appState})
-      : _clearSecureStorage = clearSecureStorage,
-        _appState = appState;
+  SplashScreenViewModel({ required AppState appState})
+      :_appState = appState;
 
   late ValueChanged<String> errorMessages;
   late VoidCallback showInternetSnackBar;
@@ -51,15 +46,6 @@ class SplashScreenViewModel extends ChangeNotifier {
     }, (r) => null);
   }
 
-  @visibleForTesting
-  Future<bool> clearSecureStorageData() async {
-    var clearSecureStorageEither = await _clearSecureStorage.call(NoParams());
-
-    if (clearSecureStorageEither.isRight()) {
-      return true;
-    }
-    return false;
-  }
 
   bool isNotInternetConnection(Failure failure) => failure is NetworkFailure;
 

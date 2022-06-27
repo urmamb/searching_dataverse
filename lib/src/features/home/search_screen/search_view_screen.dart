@@ -49,13 +49,14 @@ class _SearchViewScreenState extends State<SearchViewScreen> {
                 builder: (_, bool value, Widget? child) {
                   if (value) {
                     return ListView.builder(
+                        key: const Key('account_loading'),
                         itemCount: 7,
-                        itemBuilder: (_, __) {
+                        itemBuilder: (_, index) {
                           return const AccountLoadingOption();
                         });
                   }
                   return const SearchViewScreenContent(
-                    key: ValueKey('BusinessPaymentTabViewList'),
+                    key: Key('search_view_screen_contents'),
                   );
                 }),
           ),
@@ -69,6 +70,7 @@ class _SearchViewScreenState extends State<SearchViewScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         InkResponse(
+          key: const Key('back_button'),
           onTap: () {
             viewModel.moveBack();
           },
@@ -248,7 +250,7 @@ class _SearchViewScreenContentState extends State<SearchViewScreenContent> {
                 ]);
               }),
         ),
-        const AccountsWidget(kItemsPaddingUnit: 20, kSpacingUnit: 10),
+        const AccountsWidget(key: Key('accounts_widget'), kItemsPaddingUnit: 20, kSpacingUnit: 10),
         SliverToBoxAdapter(
           child: ValueListenableBuilder<List<Account>>(
             builder: (context, value, child) {

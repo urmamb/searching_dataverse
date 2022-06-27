@@ -5,11 +5,11 @@ import 'package:searching_dataverse/services/third_party_plugins/aad_auth/lib/aa
 import 'package:searching_dataverse/services/third_party_plugins/dataverse_oauth/dataverse_oauth.dart';
 
 
-class AadOauthImp extends DataverseAadOauth {
+class DataverseAadOauthImp extends DataverseAadOauth {
   final AadOAuth _oauth;
   final Logger _log;
 
-  AadOauthImp({required AadOAuth oauth, required Logger logger})
+  DataverseAadOauthImp({required AadOAuth oauth, required Logger logger})
       : _oauth = oauth,
         _log = logger;
 
