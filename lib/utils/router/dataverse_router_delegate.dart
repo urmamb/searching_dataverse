@@ -12,12 +12,12 @@ import 'package:flutter/material.dart';
 import '../extensions/extensions.dart' as scaffold_helper;
 import 'app_state.dart';
 
-class CasheroRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNotifier, PopNavigatorRouterDelegateMixin<PageConfiguration> {
+class DataverseRouterDelegate extends RouterDelegate<PageConfiguration> with ChangeNotifier, PopNavigatorRouterDelegateMixin<PageConfiguration> {
   late final AppState appState;
 
   late AppBackButtonDispatcher backButtonDispatcher;
 
-  CasheroRouterDelegate(this.appState) {
+  DataverseRouterDelegate(this.appState) {
     appState.addListener(() {
       notifyListeners();
     });

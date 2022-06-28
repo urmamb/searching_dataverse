@@ -1,10 +1,10 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:searching_dataverse/app/globals.dart';
 import 'package:searching_dataverse/utils/router/back_button_dispatcher.dart';
-import 'package:searching_dataverse/utils/router/cashero_route_parser.dart';
+import 'package:searching_dataverse/utils/router/dataverse_route_parser.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/router/cashero_router_delegate.dart';
+import '../utils/router/dataverse_router_delegate.dart';
 // import 'globals.dart';
 // import 'theme_data.dart';
 
@@ -30,7 +30,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  late CasheroRouterDelegate delegate;
+  late DataverseRouterDelegate delegate;
   late AppBackButtonDispatcher backButtonDispatcher;
   late DataverseParser parser = DataverseParser();
 
@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     super.initState();
 
 
-    delegate = CasheroRouterDelegate(sl());
+    delegate = DataverseRouterDelegate(sl());
     backButtonDispatcher = sl<AppBackButtonDispatcher>();
     WidgetsBinding.instance.addObserver(this);
   }
