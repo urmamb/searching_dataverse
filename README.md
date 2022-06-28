@@ -1,5 +1,24 @@
-# searching_dataverse
-This app searching the tables in dataverse storage
+# Searching-dataverse-flutter-web-dockerfile
+A demo how to access dataverse storage using Web API's. Setup flutter web and mobile app in docker container 
 
 
-flutter run lib/main/main_development.dart --flavor development -d chrome --web-hostname localhost --web-port 8081
+# Command
+## Build the docker image
+Use docker build the container image
+```
+docker build -t searching_dataverse .
+```
+If you have some problem during cache, you can clean cache by this
+```
+docker build --no-cache -t searching_dataverse .
+```
+
+## After Success building image
+Run the docker image with localhost 4000 port.
+You can change to any other port just replace it and remember to update redirect url in Azure active directory app authorization menu.
+If you want to use your datverse account please change the credentials in .env-development file inside the root directory.
+```
+docker run -d -p 4000:80 --name searching-dataverse searching_dataverse
+```
+
+Here we go, open browser and go to http://localhost:4000/

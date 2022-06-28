@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -55,11 +53,11 @@ class _HomeScreenState extends State<HomeScreen> {
               Flexible(
                   flex: 1,
                   child: Center(
-                    key: Key('description_text'),
+                      key: Key('description_text'),
                       child: Padding(
-                    padding: EdgeInsets.all(20.0.w),
-                    child: Text('Dataverse lets you securely store and manage data that iss used by business applications. Data within Dataverse is stored within a set of tables.'),
-                  ))),
+                        padding: EdgeInsets.all(20.0.w),
+                        child: Text('Dataverse lets you securely store and manage data that iss used by business applications. Data within Dataverse is stored within a set of tables.'),
+                      ))),
               // SizedBox(height: 30.h,),
               Spacer(),
               Center(
@@ -70,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () async {
                       showLoader.toggle();
                       viewModel.getAccessToken();
-                      // ShowLoader(context).toggle();
                     },
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(

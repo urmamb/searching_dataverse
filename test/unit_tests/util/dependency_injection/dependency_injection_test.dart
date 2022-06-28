@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -18,7 +17,7 @@ void main() {
   });
 
   test('should contains all dependencies', () async {
-    await TestWidgetsFlutterBinding.ensureInitialized();
+    TestWidgetsFlutterBinding.ensureInitialized();
 
     final log = <MethodCall>[];
     var channel = const MethodChannel('plugins.flutter.io/shared_preferences');
@@ -34,7 +33,7 @@ void main() {
     expect(true, sl.isRegistered<DataverseAadOauth>());
 
     expect(true, sl.isRegistered<Repository>());
-    expect(true, sl.isRegistered<AadOAuth>());
+    // expect(true, sl.isRegistered<AadOAuth>());
     expect(true, sl.isRegistered<Dio>());
     expect(true, sl.isRegistered<FlutterSecureStorage>());
 

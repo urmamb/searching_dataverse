@@ -46,14 +46,15 @@ void registerCoreDependencies() {
 void registerExternalDependencies() {
   sl.registerLazySingleton(() => Dio(BaseOptions(receiveTimeout: 60000, connectTimeout: 60000, sendTimeout: 60000)));
   sl.registerLazySingleton(() => const FlutterSecureStorage());
-  sl.registerLazySingleton(() => AadOAuth(Config(
-      tenant: dotenv.env["tenantid"]!,
-      clientId: dotenv.env["clientid"]!,
-      scope: 'openid profile offline_access User.Read',
-      redirectUri: kIsWeb ? dotenv.env["redirectWebUri"]! : dotenv.env["redirectMobileUri"]!,
-      navigatorKey: navigatorKeyGlobal,
-      isB2C: false,
-      resource: dotenv.env['resourceurl'])));
+    sl.registerLazySingleton(() => AadOAuth(Config(
+        tenant: dotenv.env["tenantid"]!,
+        clientId: dotenv.env["clientid"]!,
+        scope: 'openid profile offline_access User.Read',
+        redirectUri: kIsWeb ? dotenv.env["redirectWebUri"]! : dotenv.env["redirectMobileUri"]!,
+        navigatorKey: navigatorKeyGlobal,
+        isB2C: false,
+        resource: dotenv.env['resourceurl'])));
+
 }
 
 /// This method will register the repository

@@ -1,8 +1,6 @@
 /// Authenticates a user with Azure Active Directory using OAuth2.0.
 library aad_oauth;
 
-// import 'package:dataverse_oauth/helper/core_oauth.dart';
-
 import 'package:searching_dataverse/services/third_party_plugins/aad_auth/lib/helper/core_oauth.dart';
 
 import 'model/config.dart';
