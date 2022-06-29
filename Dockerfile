@@ -25,7 +25,7 @@ RUN mkdir /app/
 COPY . /app/
 WORKDIR /app/
 RUN flutter test
-RUN flutter build web
+RUN flutter build web -t lib/main/main_development.dart
 
 # Stage 2 - Create the run-time image
 FROM nginx:1.21.1-alpine
