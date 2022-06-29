@@ -29,8 +29,8 @@ external void jsLogout(
 @JS('getAccessToken')
 external String? jsGetAccessToken();
 
-@JS('getIdToken')
-external String? jsGetIdToken();
+// @JS('getIdToken')
+// external String? jsGetIdToken();
 
 class WebOAuth extends CoreOAuth {
   WebOAuth(Config config) {
@@ -65,7 +65,8 @@ class WebOAuth extends CoreOAuth {
 
   @override
   Future<String?> getIdToken() async {
-    return jsGetIdToken();
+    // return jsGetIdToken();
+    return '';
   }
 
   @override

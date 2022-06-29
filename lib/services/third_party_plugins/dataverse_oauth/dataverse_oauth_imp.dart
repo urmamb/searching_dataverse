@@ -23,9 +23,18 @@ class DataverseAadOauthImp extends DataverseAadOauth {
 
   @override
   Future<String> getAccessToken() async {
-    return await _oauth.getAccessToken().then((token) {
+    return await _oauth.getAccessToken().then((token) async{
 
       if(token != null){
+
+        await _oauth.getIdToken().then((idToken) {
+          if(idToken != null){
+            _log.i('AadOauthImp | IdToken | success: $idToken');
+
+          }
+
+        });
+
         _log.i('AadOauthImp | AccessToken | success: $token');
         return token;
       }

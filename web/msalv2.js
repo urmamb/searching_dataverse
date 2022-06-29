@@ -1,146 +1,108 @@
 // Needs to be a var at the top level to get hoisted to global scope.
 // https://stackoverflow.com/questions/28776079/do-let-statements-create-properties-on-the-global-object/28776236#28776236
 var aadOauth = (function () {
-  let myMSALObj = null;
-  let authResult = null;
 
-  const tokenRequest = {
-    scopes: null,
-    // Hardcoded?
-    prompt: null,
-  };
+
+//   let myMSALObj = null;
+//   let authResult = null;
+
+//   const tokenRequest = {
+//     scopes: null,
+//     // Hardcoded?
+//     prompt: null,
+//   };
+    var user, authContext, message, errorMessage, organizationURI, tenant, clientId, pageUrl;
 
   // Initialise the myMSALObj for the given client, authority and scope
   function init(config) {
-    // TODO: Add support for other MSAL / B2C configuration
-    var msalConfig = {
-      auth: {
-        clientId: config.clientId,
-        authority: "https://login.microsoftonline.com/" + config.tenant,
-        redirectUri: config.redirectUri,
-      },
-      cache: {
-        cacheLocation: "localStorage",
-        storeAuthStateInCookie: false,
-      },
+
+    //Set these variables to match your environment
+     organizationURI = config.resource; //The URL of your Dataverse organization
+     tenant = config.tenant; //The name of the Azure AD organization you use
+     clientId = config.clientId; //The ClientId you got when you registered the application
+     pageUrl = config.redirectUri; //The URL of this page in your development environment when debugging.
+
+
+    //Configuration data for AuthenticationContext
+    var endpoints = {
+        orgUri: organizationURI
     };
 
-    if (typeof config.scope === "string") {
-      tokenRequest.scopes = config.scope.split(" ");
-    } else {
-      tokenRequest.scopes = config.scope;
-    }
+    window.config = {
+        tenant: tenant,
+        clientId: clientId,
+        postLogoutRedirectUri: pageUrl,
+        endpoints: endpoints,
+        cacheLocation: 'localStorage',
+    };
 
-    tokenRequest.prompt = config.prompt;
-
-    myMSALObj = new msal.PublicClientApplication(msalConfig);
+    authenticate();
   }
 
-  /// Authorize user via refresh token or web gui if necessary.
-  ///
-  /// Setting [refreshIfAvailable] to [true] should attempt to re-authenticate
-  /// with the existing refresh token, if any, even though the access token may
-  /// still be valid; however MSAL doesn't support this. Therefore it will have
-  /// the same impact as when it is set to [false]. 
-  /// The token is requested using acquireTokenSilent, which will refresh the token
-  /// if it has nearly expired. If this fails for any reason, it will then move on
-  /// to attempt to refresh the token using an interactive login.
+   function login() {
+    authContext.login();
+   }
 
-  async function login(refreshIfAvailable, onSuccess, onError) {
-    // Try to sign in silently
-    const account = getAccount();
-    if (account !== null) {
-      try {
-        // Silent acquisition only works if we the access token is either
-        // within its lifetime, or the refresh token can successfully be
-        // used to refresh it. This will throw if the access token can't
-        // be acquired.
-        const silentAuthResult = await myMSALObj.acquireTokenSilent({
-          scopes: tokenRequest.scopes,
-          prompt: "none",
-          account: account
-        });
-
-        authResult = silentAuthResult;
-
-        // Skip interactive login
-        onSuccess();
-
-        return;
-      } catch (error) {
-        console.log(error.message)
-      }
-    }
-
-    // Sign in with popup
-    try {
-      const interactiveAuthResult = await myMSALObj.loginPopup({
-        scopes: tokenRequest.scopes,
-        prompt: tokenRequest.prompt,
-        account: account
-      });
-
-      authResult = interactiveAuthResult;
-
-      onSuccess();
-    } catch (error) {
-      // rethrow
-      console.warn(error.message);
-      onError(error);
-    }
-  }
 
   function getAccount() {
-    // If we have recently authenticated, we use the auth'd account;
-    // otherwise we fallback to using MSAL APIs to find cached auth
-    // accounts in browser storage.
-    if (authResult !== null && authResult.account !== null) {
-      return authResult.account
-    }
-
-    const currentAccounts = myMSALObj.getAllAccounts();
-
-    if (currentAccounts === null || currentAccounts.length === 0) {
-      return null;
-    } else if (currentAccounts.length > 1) {
-      // Multiple users - pick the first one, but this shouldn't happen
-      console.warn("Multiple accounts detected, selecting first.");
-
-      return currentAccounts[0];
-    } else if (currentAccounts.length === 1) {
-      return currentAccounts[0];
-    }
+    authContext.acquireToken(organizationURI, retrieveAccounts)
   }
+
 
   function logout(onSuccess, onError) {
-    const account = getAccount();
+    authContext.logOut();
+  }
 
-    if (!account) {
-      onSuccess();
-      return;
+  function authenticate() {
+    authContext = new AuthenticationContext(config);
+
+    // Check For & Handle Redirect From AAD After Login
+    var isCallback = authContext.isCallback(window.location.hash);
+    if (isCallback) {
+     authContext.handleWindowCallback();
     }
+    var loginError = authContext.getLoginError();
 
-    authResult = null;
-    tokenRequest.scopes = null;
-    myMSALObj
-      .logout({ account: account })
-      .then((_) => onSuccess())
-      .catch(onError);
+    if (isCallback && !loginError) {
+     window.location = authContext._getItem(authContext.CONSTANTS.STORAGE.LOGIN_REQUEST);
+//     var token = authContext._getItem(authContext.CONSTANTS.ACCESS_TOKEN);
+//     window.location = token;
+//     return
+    }
+    /*else {
+     errorMessage.textContent = loginError;
+    }*/
+//     user = authContext.getCachedUser();
+//    if (!user) {
+//       authContext.login();
+//    }
+//    else
+//       authContext.acquireTokenPopup(organizationURI);
+
   }
 
-  function getAccessToken() {
-    return authResult ? authResult.accessToken : null;
+  function getAccessToken(){
+    user = authContext.getCachedUser();
+         var token = authContext.getCachedToken(authContext.CONSTANTS.STORAGE.ACCESS_TOKEN_KEY);
+
+    if (!token) {
+        authContext.login();
+    }
+    else
+        authContext.acquireTokenPopup(organizationURI);
   }
 
-  function getIdToken() {
-    return authResult ? authResult.idToken : null;
-  }
+
+
+    //   function getIdToken() {
+    //     return authResult ? authResult.idToken : null;
+    //   }
 
   return {
     init: init,
     login: login,
     logout: logout,
-    getIdToken: getIdToken,
+    // getIdToken: getIdToken,
     getAccessToken: getAccessToken,
   };
 })();
