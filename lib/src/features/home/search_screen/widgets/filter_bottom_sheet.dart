@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:searching_dataverse/app/globals.dart';
-import 'package:searching_dataverse/src/features/common_widgets/continue_button.dart';
 import 'package:searching_dataverse/src/features/home/search_screen/model/search_screen_view_model.dart';
 
 import '../../../../../app/widgets/responsive.dart';

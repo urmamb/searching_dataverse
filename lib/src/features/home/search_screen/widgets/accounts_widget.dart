@@ -40,9 +40,9 @@ class AccountsWidget extends StatelessWidget {
           }
           return SliverGrid(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: Responsive.isMobile(context) ? 2 : 3,
                 mainAxisSpacing: 20.h,
-                childAspectRatio:  Responsive.isMobile(context) ? 1.5 : 2.0,
+                childAspectRatio:  Responsive.isMobile(context) ? 1.5 : 4.0,
               ),
               delegate: SliverChildBuilderDelegate(
                 (_, __) {

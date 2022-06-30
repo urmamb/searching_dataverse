@@ -75,6 +75,10 @@ class _SearchViewScreenState extends State<SearchViewScreen> {
             alignment: Alignment.topLeft,
             child: InkResponse(
               hoverColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
+
               key: const Key('back_button'),
               onTap: () {
                 viewModel.moveBack();
@@ -102,6 +106,9 @@ class _SearchViewScreenState extends State<SearchViewScreen> {
             children: [
               InkResponse(
                 hoverColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
                 onTap: () {
                   viewModel.logout();
                 },
@@ -120,6 +127,10 @@ class _SearchViewScreenState extends State<SearchViewScreen> {
               ),
               InkResponse(
                 hoverColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+
                 onTap: () {
                   viewModel.switchView();
                 },
