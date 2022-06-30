@@ -23,5 +23,9 @@ abstract class Repository {
   /// [Output] : List<[Account]> contains information about account.
   Future<Either<Failure, List<Account>>> getAccounts();
 
+  /// This use case will check accessToken availablity in web only
+  /// Output: [bool] returns true if accessToken is available else false
+  Future<Either<Failure, bool>> checkAccessToken();
+
 
 }

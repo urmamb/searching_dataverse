@@ -4,6 +4,8 @@ import 'package:searching_dataverse/app/globals.dart';
 import 'package:searching_dataverse/src/features/common_widgets/continue_button.dart';
 import 'package:searching_dataverse/src/features/home/search_screen/model/search_screen_view_model.dart';
 
+import '../../../../../app/widgets/responsive.dart';
+
 class FilterAccountsBottomSheet {
   BuildContext context;
 
@@ -23,12 +25,15 @@ class FilterAccountsBottomSheet {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       context: context,
       isScrollControlled: true,
+      constraints: BoxConstraints(
+        maxWidth: Responsive.isMobile(context) ? 0.9.sw : 0.3.sw,
+      ),
       builder: (_) {
         return StatefulBuilder(builder: (_, myState) {
           return Container(
             height: MediaQuery.of(context).size.height * 0.9,
             color: Theme.of(context).scaffoldBackgroundColor,
-            padding: EdgeInsets.only(bottom: MediaQuery.of(_).viewInsets.bottom + 5.h, left: 16.w, right: 16.w),
+            padding: EdgeInsets.only(bottom: MediaQuery.of(_).viewInsets.bottom + 5.h, left:  Responsive.isMobile(context) ? 16.w : 5.w, right:  Responsive.isMobile(context) ? 16.w : 5.w),
             child: Stack(
               children: [
                 Column(
@@ -49,7 +54,7 @@ class FilterAccountsBottomSheet {
                           child: Icon(
                             Icons.close,
                             color: Theme.of(_).colorScheme.error,
-                            size: 20.0.w,
+                            size: Responsive.isMobile(context) ? 20.w : 5.w,
                           ),
                         )
                       ],

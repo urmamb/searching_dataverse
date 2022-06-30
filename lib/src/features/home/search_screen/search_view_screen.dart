@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:searching_dataverse/app/app_assets_path.dart';
 import 'package:searching_dataverse/app/globals.dart';
+import 'package:searching_dataverse/app/widgets/responsive.dart';
 import 'package:searching_dataverse/src/features/home/search_screen/model/search_screen_view_model.dart';
 import 'package:searching_dataverse/src/features/home/search_screen/usecase/get_accounts.dart';
 import 'package:searching_dataverse/src/features/home/search_screen/widgets/account_loading_widget.dart';
@@ -41,7 +42,7 @@ class _SearchViewScreenState extends State<SearchViewScreen> {
         child: SafeArea(
           child: Scaffold(
             appBar: PreferredSize(
-              preferredSize: Size(MediaQuery.of(context).size.width, 100.h),
+              preferredSize: Size(MediaQuery.of(context).size.width, 80),
               child: buildBackButton(),
             ),
             body: ValueListenableBuilder(
@@ -67,58 +68,82 @@ class _SearchViewScreenState extends State<SearchViewScreen> {
 
   Widget buildBackButton() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        InkResponse(
-          key: const Key('back_button'),
-          onTap: () {
-            viewModel.moveBack();
-          },
-          child: Container(
-            margin: EdgeInsets.only(left: 12.w),
-            height: 60.h,
-            width: 50.h,
-            alignment: Alignment.centerLeft,
-            child: Icon(
-              Icons.arrow_back,
-              size: 20.w,
+        Expanded(
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: InkResponse(
+              hoverColor: Colors.transparent,
+              key: const Key('back_button'),
+              onTap: () {
+                viewModel.moveBack();
+              },
+              child: Container(
+                margin: EdgeInsets.only(left: 12.w),
+                height: 60.h,
+                width: 50.h,
+                alignment: Alignment.centerLeft,
+                child: Center(
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: Responsive.isMobile(context) ? 20.w : 5.w,
+                  ),
+                ),
+              ),
             ),
           ),
         ),
-        InkResponse(
-          onTap: () {
-            viewModel.logout();
-          },
-          child: Container(
-            margin: EdgeInsets.only(left: 12.w),
-            height: 60.h,
-            width: 50.h,
-            alignment: Alignment.centerLeft,
-            child: Icon(
-              Icons.logout,
-              size: 20.w,
-            ),
+        Align(
+          alignment: Alignment.topRight,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkResponse(
+                hoverColor: Colors.transparent,
+                onTap: () {
+                  viewModel.logout();
+                },
+                child: Container(
+                  margin: EdgeInsets.only(left: 12.w),
+                  height: 60.h,
+                  width: 50.h,
+                  alignment: Alignment.centerLeft,
+                  child: Center(
+                    child: Icon(
+                      Icons.logout,
+                      size: Responsive.isMobile(context) ? 20.w : 5.w,
+                    ),
+                  ),
+                ),
+              ),
+              InkResponse(
+                hoverColor: Colors.transparent,
+                onTap: () {
+                  viewModel.switchView();
+                },
+                child: Container(
+                  margin: EdgeInsets.only(left: 12.w),
+                  height: 60.h,
+                  width: 50.h,
+                  alignment: Alignment.centerLeft,
+                  child: ValueListenableBuilder<bool>(
+                      valueListenable: viewModel.isListView,
+                      builder: (context, value, child) {
+                        return Center(
+                          child: Icon(
+                            value ? Icons.grid_view_rounded : Icons.list,
+                            size: Responsive.isMobile(context) ? 20.w : 5.w,
+                          ),
+                        );
+                      }),
+                ),
+              ),
+            ],
           ),
         ),
-        InkResponse(
-          onTap: () {
-            viewModel.switchView();
-          },
-          child: Container(
-            margin: EdgeInsets.only(left: 12.w),
-            height: 60.h,
-            width: 50.h,
-            alignment: Alignment.centerLeft,
-            child: ValueListenableBuilder<bool>(
-                valueListenable: viewModel.isListView,
-                builder: (context, value, child) {
-                  return Icon(
-                    value ? Icons.grid_view_rounded : Icons.list,
-                    size: 20.w,
-                  );
-                }),
-          ),
-        ),
+
       ],
     );
   }
@@ -152,9 +177,11 @@ class _SearchViewScreenContentState extends State<SearchViewScreenContent> {
         SliverToBoxAdapter(
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                width: Responsive.isMobile(context) ? 1.sw : 0.4.sw,
+                padding: EdgeInsets.symmetric(horizontal: 20.r),
                 child: Card(
                   color: Theme.of(context).primaryColor.withOpacity(0.1),
                   elevation: 0,
@@ -162,13 +189,16 @@ class _SearchViewScreenContentState extends State<SearchViewScreenContent> {
                     borderRadius: BorderRadius.circular(10.r),
                   ),
                   child: ListTile(
-                    title: TextField(
-                      controller: context.read<SearchScreenViewModel>().searchController,
-                      style: Theme.of(context).textTheme.bodyText2,
-                      decoration: InputDecoration(
-                        hintText: 'Search account',
-                        hintStyle: Theme.of(context).textTheme.caption!.copyWith(fontSize: 14.sp, color: Theme.of(context).primaryColor.withOpacity(0.2)),
-                        border: InputBorder.none,
+                    title: Container(
+                      height: Responsive.isMobile(context) ? null : 50,
+                      child: TextField(
+                        controller: context.read<SearchScreenViewModel>().searchController,
+                        style: Theme.of(context).textTheme.bodyText2,
+                        decoration: InputDecoration(
+                          hintText: 'Search account',
+                          hintStyle: Theme.of(context).textTheme.caption!.copyWith(fontSize: 14, color: Theme.of(context).primaryColor.withOpacity(0.2)),
+                          border: InputBorder.none,
+                        ),
                       ),
                     ),
                   ),
@@ -184,6 +214,7 @@ class _SearchViewScreenContentState extends State<SearchViewScreenContent> {
                 if (value.isEmpty) {
                   if (context.read<SearchScreenViewModel>().searchController.text.isNotEmpty) {
                     return Container(
+                        width: Responsive.isMobile(context) ? null : 0.5.sw,
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       SizedBox(height: 10.h * 2),
                       Container(
@@ -208,9 +239,10 @@ class _SearchViewScreenContentState extends State<SearchViewScreenContent> {
                   return const SizedBox();
                 }
 
-                return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
                   SizedBox(height: 10.h * 2),
                   Container(
+                    width: Responsive.isMobile(context) ? null : 0.7.sw,
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -250,7 +282,7 @@ class _SearchViewScreenContentState extends State<SearchViewScreenContent> {
                 ]);
               }),
         ),
-        const AccountsWidget(key: Key('accounts_widget'), kItemsPaddingUnit: 20, kSpacingUnit: 10),
+        AccountsWidget(key: Key('accounts_widget'), kItemsPaddingUnit: Responsive.isMobile(context) ? 20 : 5, kSpacingUnit: Responsive.isMobile(context) ? 10 : 2),
         SliverToBoxAdapter(
           child: ValueListenableBuilder<List<Account>>(
             builder: (context, value, child) {

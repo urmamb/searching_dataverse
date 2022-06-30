@@ -30,7 +30,6 @@ class DataverseAadOauthImp extends DataverseAadOauth {
         await _oauth.getIdToken().then((idToken) {
           if(idToken != null){
             _log.i('AadOauthImp | IdToken | success: $idToken');
-
           }
 
         });
@@ -47,6 +46,18 @@ class DataverseAadOauthImp extends DataverseAadOauth {
    return await _oauth.logout().then((value) => true).onError((error, stackTrace) {
       _log.i('AadOauthImp | logout: $error');
       return false;
+    });
+  }
+
+  @override
+  Future<bool> checkAccessToken() async{
+    return await _oauth.checkAccessToken().then((res) async{
+
+      if(res){
+        _log.i('AadOauthImp | checkAccessToken | success: $res');
+        return true;
+      }
+      throw AccessTokenFailure('Access token not found') ;
     });
   }
 }

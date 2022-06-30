@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,7 +29,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-
     viewModel.errorMessages = (value) => scaffoldKey.currentContext!.show(message: value);
     viewModel.showInternetSnackBar = () {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -202,8 +202,15 @@ class _MyAppAnimatedLogoState extends State<MyAppAnimatedLogo> with TickerProvid
       await Future.delayed(const Duration(milliseconds: 100));
       unawaited(leftAnimationController.forward());
 
-      await Future.delayed(const Duration(seconds: 3), (){
+      await Future.delayed(const Duration(seconds: 3), () async {
+        if(kIsWeb){
+          if(await context.read<SplashScreenViewModel>().checkAccessTokenAvailable()){
+            context.read<SplashScreenViewModel>().moveToSearchScreen();
+            return;
+          }
+        }
         context.read<SplashScreenViewModel>().moveToHomeScreen();
+
       });
 
     });

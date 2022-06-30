@@ -7,4 +7,7 @@ abstract class DataverseAadOauth {
 
   /// This method will logout user
   Future<bool> logout();
+
+  /// This method will check if accessToken is available in localstorage or not
+  Future<bool>checkAccessToken();
 }

@@ -5,8 +5,6 @@ import 'package:searching_dataverse/utils/router/dataverse_route_parser.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/router/dataverse_router_delegate.dart';
-// import 'globals.dart';
-// import 'theme_data.dart';
 
 class EasyApp extends StatefulWidget {
   const EasyApp({Key? key}) : super(key: key);
@@ -46,7 +44,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(builder: (context, child) {
+    return ScreenUtilInit(
+        designSize: Size(360, 690),
+
+        builder: (context, child) {
       return MaterialApp.router(
           scaffoldMessengerKey: scaffoldMessengerGlobal,
           routerDelegate: delegate,

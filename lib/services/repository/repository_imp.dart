@@ -66,4 +66,15 @@ class RepositoryImp implements Repository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> checkAccessToken() async{
+    try {
+      return Right(await _aadOauth.checkAccessToken());
+    } on Failure catch (e) {
+    return Left(e);
+    } catch (e) {
+    return Left(ServerFailure(e.toString()));
+    }
+  }
 }

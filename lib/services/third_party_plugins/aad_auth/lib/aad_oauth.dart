@@ -25,9 +25,14 @@ class AadOAuth {
   /// Retrieve cached OAuth Access Token.
   Future<String?> getAccessToken() async => _coreOAuth.getAccessToken();
 
+  /// check if accessToken available in localStorage or not
+  Future<bool> checkAccessToken() async => _coreOAuth.checkAccessToken();
+
   /// Retrieve cached OAuth Id Token.
   Future<String?> getIdToken() async => _coreOAuth.getIdToken();
 
   /// Perform Azure AD logout.
   Future<void> logout() async => _coreOAuth.logout();
+
+
 }

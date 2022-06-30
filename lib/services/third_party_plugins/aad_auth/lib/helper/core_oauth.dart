@@ -23,4 +23,6 @@ class CoreOAuth {
 
   factory CoreOAuth.fromConfig(Config config) =>
       config.isStub ? CoreOAuth() : getOAuthConfig(config);
+
+  Future<bool> checkAccessToken() async => false;
 }

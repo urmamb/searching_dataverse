@@ -49,12 +49,8 @@ dependencies:
 
   fluttertoast: 8.0.9
 
-#  aad_oauth: ^0.4.0
   # For comparing
   equatable: 2.0.3
-
-  # for removing hash from url
-  url_strategy: ^0.2.0
 
   http: ^0.13.4
   pedantic: ^1.11.1
@@ -128,5 +124,5 @@ flutter:
     - assets/svg/
     - assets/lottie_files/
     - assets/images/
-#    - assets/msalv2.js
+#    - assets/myadaljs.js
 

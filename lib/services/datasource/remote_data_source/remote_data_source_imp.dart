@@ -33,7 +33,7 @@ class RemoteDataSourceImp implements RemoteDataSource {
       throw AccessTokenFailure('Access Token Failure');
     });
 
-    _log.i('[remote data source : getAccounts] $response');
+    // _log.i('[remote data source : getAccounts] $response');
 
     if (response.statusCode == 200) {
       return List.from(response.data['value']).map((e) => Account.fromJson(e)).toList();

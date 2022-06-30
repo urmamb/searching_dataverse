@@ -6,6 +6,7 @@ library msauth;
 import 'dart:async';
 
 import 'package:js/js.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:searching_dataverse/services/third_party_plugins/aad_auth/lib/helper/core_oauth.dart';
 import 'package:searching_dataverse/services/third_party_plugins/aad_auth/lib/model/config.dart';
 import 'package:searching_dataverse/services/third_party_plugins/aad_auth/lib/model/msalconfig.dart';
@@ -28,6 +29,10 @@ external void jsLogout(
 
 @JS('getAccessToken')
 external String? jsGetAccessToken();
+
+@JS('checkAccessToken')
+external String? jsCheckAccessToken();
+
 
 // @JS('getIdToken')
 // external String? jsGetIdToken();
@@ -61,6 +66,19 @@ class WebOAuth extends CoreOAuth {
   @override
   Future<String?> getAccessToken() async {
     return jsGetAccessToken();
+  }
+
+  @override
+  Future<bool> checkAccessToken() async {
+
+    var token = jsCheckAccessToken();
+    if(token == null || JwtDecoder.isExpired(token)){
+      return false;
+    }
+    if(token.isNotEmpty && !JwtDecoder.isExpired(token)){
+      return true;
+    }
+    return false;
   }
 
   @override

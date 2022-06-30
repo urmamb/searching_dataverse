@@ -23,6 +23,7 @@ import '../../services/third_party_plugins/aad_auth/lib/aad_oauth.dart';
 import '../../services/third_party_plugins/aad_auth/lib/model/config.dart';
 import '../../services/third_party_plugins/dataverse_oauth/dataverse_oauth.dart';
 import '../../services/third_party_plugins/dataverse_oauth/dataverse_oauth_imp.dart';
+import '../../src/features/splash_screen/usecase/check_access_token.dart';
 
 /// This method is used for initializing all the dependencies
 Future<void> init() async {
@@ -65,7 +66,7 @@ void registerRepository() {
 /// This method will register all the view models
 void registerViewModels() {
   sl.registerLazySingleton(
-    () => SplashScreenViewModel(appState: sl()),
+    () => SplashScreenViewModel(appState: sl(), checkAccessToken: sl()),
   );
 
   sl.registerLazySingleton(() => HomeScreenViewModel(getAccessToken: sl(), logInUser: sl(), appState: sl()));
@@ -83,4 +84,5 @@ void registerUseCases() {
   sl.registerLazySingleton(() => LogOutUser(sl()));
   sl.registerLazySingleton(() => LogInUser(sl()));
   sl.registerLazySingleton(() => GetAccounts(sl()));
+  sl.registerLazySingleton(() => CheckAccessToken(sl()));
 }

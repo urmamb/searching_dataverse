@@ -1,19 +1,9 @@
 // Needs to be a var at the top level to get hoisted to global scope.
 // https://stackoverflow.com/questions/28776079/do-let-statements-create-properties-on-the-global-object/28776236#28776236
 var aadOauth = (function () {
-
-
-//   let myMSALObj = null;
-//   let authResult = null;
-
-//   const tokenRequest = {
-//     scopes: null,
-//     // Hardcoded?
-//     prompt: null,
-//   };
     var user, authContext, message, errorMessage, organizationURI, tenant, clientId, pageUrl;
 
-  // Initialise the myMSALObj for the given client, authority and scope
+  // Initialise the Adal js for the given client, authority and scope
   function init(config) {
 
     //Set these variables to match your environment
@@ -65,38 +55,35 @@ var aadOauth = (function () {
 
     if (isCallback && !loginError) {
      window.location = authContext._getItem(authContext.CONSTANTS.STORAGE.LOGIN_REQUEST);
-//     var token = authContext._getItem(authContext.CONSTANTS.ACCESS_TOKEN);
-//     window.location = token;
-//     return
     }
-    /*else {
-     errorMessage.textContent = loginError;
-    }*/
-//     user = authContext.getCachedUser();
-//    if (!user) {
-//       authContext.login();
-//    }
-//    else
-//       authContext.acquireTokenPopup(organizationURI);
 
   }
 
   function getAccessToken(){
-    user = authContext.getCachedUser();
-         var token = authContext.getCachedToken(authContext.CONSTANTS.STORAGE.ACCESS_TOKEN_KEY);
-
-    if (!token) {
-        authContext.login();
+    var token = authContext._getItem(authContext.CONSTANTS.STORAGE.ACCESS_TOKEN_KEY);
+    var tokenExpiry = authContext._getItem(authContext.CONSTANTS.STORAGE.EXPIRATION_KEY);
+    var isValidToken = true;
+    if (tokenExpiry < new Date()/1000) {
+     isValidToken = false;
+    }
+    if (token && isValidToken) {
+        return token;
     }
     else
-        authContext.acquireTokenPopup(organizationURI);
+     authContext.login();
+
+    return null;
   }
 
+  function checkAccessToken(){
+      var token = authContext._getItem(authContext.CONSTANTS.STORAGE.ACCESS_TOKEN_KEY);
+      if (token) {
+          return token;
+      }
+      else
+      return null;
+  }
 
-
-    //   function getIdToken() {
-    //     return authResult ? authResult.idToken : null;
-    //   }
 
   return {
     init: init,
@@ -104,5 +91,6 @@ var aadOauth = (function () {
     logout: logout,
     // getIdToken: getIdToken,
     getAccessToken: getAccessToken,
+    checkAccessToken: checkAccessToken,
   };
 })();
