@@ -119,9 +119,6 @@ class AccountsOnDataversGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // context.read<SearchScreenViewModel>().routeToBusinessDetailScreen(
-        //   businessId: account.accountid,
-        // );
       },
       child: Container(
         decoration: BoxDecoration(color: Theme.of(context).primaryColor.withOpacity(0.05), borderRadius: BorderRadius.circular(10.r)),

@@ -38,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
                 flex: 3,
@@ -49,7 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              // SizedBox(height: 30.h,),
               Flexible(
                   flex: 1,
                   child: Center(
@@ -58,7 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.all(20.0.w),
                         child: Text('Dataverse lets you securely store and manage data that iss used by business applications. Data within Dataverse is stored within a set of tables.'),
                       ))),
-              // SizedBox(height: 30.h,),
               Spacer(),
               Center(
                 child: SizedBox(
