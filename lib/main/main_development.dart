@@ -4,6 +4,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
+import 'package:url_strategy/url_strategy.dart';
 import '../utils/dependency_injection/dependency_injection.dart' as di;
 import '../app/app.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/services.dart';
 
 /// Our development app start from here
 void main() async {
+  setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: 'env/.env_development');
   await di.init();

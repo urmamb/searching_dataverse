@@ -6,6 +6,7 @@ import 'models/page_config.dart';
 import 'ui_pages.dart';
 
 class DataverseParser extends RouteInformationParser<PageConfiguration> {
+
   @override
   Future<PageConfiguration> parseRouteInformation(RouteInformation routeInformation) {
     final uri = Uri.parse(routeInformation.location ?? '');
