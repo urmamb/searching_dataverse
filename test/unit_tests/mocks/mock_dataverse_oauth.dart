@@ -20,4 +20,9 @@ class MockDataversAadOauth implements DataverseAadOauthImp{
     return true;
   }
 
+  @override
+  Future<bool> checkAccessToken() async{
+    return true;
+  }
+
 }

@@ -47,4 +47,9 @@ class MockRepository implements Repository {
   Future<Either<Failure, bool>> saveAuthToken(String params) async{
     return const Right(true);
   }
+
+  @override
+  Future<Either<Failure, bool>> checkAccessToken() async{
+    return const Right(true);
+  }
 }

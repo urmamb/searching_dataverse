@@ -47,4 +47,9 @@ class MockErrorRepository implements Repository {
   Future<Either<Failure, bool>> saveAuthToken(String params) async{
     return Left(ServerFailure(SOMETHING_WENT_WRONG));
   }
+
+  @override
+  Future<Either<Failure, bool>> checkAccessToken() async{
+    return Left(ServerFailure(SOMETHING_WENT_WRONG));
+  }
 }
