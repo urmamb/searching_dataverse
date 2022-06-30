@@ -21,7 +21,7 @@ var aadOauth = (function () {
     window.config = {
         tenant: tenant,
         clientId: clientId,
-        postLogoutRedirectUri: pageUrl,
+        postLogoutRedirectUri: window.location.origin,
         endpoints: endpoints,
         cacheLocation: 'localStorage',
     };

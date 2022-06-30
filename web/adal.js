@@ -821,6 +821,8 @@ var AuthenticationContext = (function () {
         this._saveItem(this.CONSTANTS.STORAGE.ERROR_DESCRIPTION, '');
         this._saveItem(this.CONSTANTS.STORAGE.LOGIN_ERROR, '');
         this._saveItem(this.CONSTANTS.STORAGE.LOGIN_ERROR, '');
+        this._saveItem(this.CONSTANTS.STORAGE.ACCESS_TOKEN_KEY, '');
+        this._saveItem(this.CONSTANTS.STORAGE.EXPIRATION_KEY, '');
         var keys = this._getItem(this.CONSTANTS.STORAGE.TOKEN_KEYS);
 
         if (!this._isEmpty(keys)) {

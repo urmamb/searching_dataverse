@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
+import '../../../../../app/widgets/responsive.dart';
+
 class AccountLoadingOption extends StatelessWidget {
   const AccountLoadingOption({Key? key}) : super(key: key);
 
@@ -11,24 +13,24 @@ class AccountLoadingOption extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
             height: 30.h,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
+              Flexible(
                 flex: 2,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(40.h),
+                  borderRadius: BorderRadius.circular(Responsive.isMobile(context) ? 40.h : 50),
                   child: Shimmer(
                     color: Theme.of(context).iconTheme.color!,
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: Container(
-                        height: 40.h,
-                      ),
+                    child: Container(
+                      height: Responsive.isMobile(context) ? 40.h : 10.w,
+                      width: Responsive.isMobile(context) ? 40.h : 10.w,
                     ),
                   ),
                 ),
