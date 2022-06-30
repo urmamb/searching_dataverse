@@ -14,11 +14,11 @@ docker build --no-cache -t searching_dataverse .
 ```
 
 ## After Success building image
-Run the docker image with localhost 4000 port.
+Run the docker image with localhost 8081 port.
 You can change to any other port just replace it and remember to update redirect url in Azure active directory app authorization menu.
 If you want to use your datverse account please change the credentials in .env-development file inside the root directory.
 ```
-docker run -d -p 4000:80 --name searching-dataverse searching_dataverse
+docker run -d -p 8081:80 --name searching-dataverse searching_dataverse
 ```
 
-Here we go, open browser and go to http://localhost:4000/
+Here we go, open browser and go to http://localhost:8081/
